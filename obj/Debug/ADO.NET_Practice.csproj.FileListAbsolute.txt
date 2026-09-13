@@ -1,0 +1,7 @@
+C:\Users\Aio\source\repos\ADO.NET_Practice\bin\Debug\ADO.NET_Practice.exe.config
+C:\Users\Aio\source\repos\ADO.NET_Practice\bin\Debug\ADO.NET_Practice.exe
+C:\Users\Aio\source\repos\ADO.NET_Practice\bin\Debug\ADO.NET_Practice.pdb
+C:\Users\Aio\source\repos\ADO.NET_Practice\obj\Debug\ADO.NET_Practice.csproj.AssemblyReference.cache
+C:\Users\Aio\source\repos\ADO.NET_Practice\obj\Debug\ADO.NET_Practice.csproj.CoreCompileInputs.cache
+C:\Users\Aio\source\repos\ADO.NET_Practice\obj\Debug\ADO.NET_Practice.exe
+C:\Users\Aio\source\repos\ADO.NET_Practice\obj\Debug\ADO.NET_Practice.pdb
