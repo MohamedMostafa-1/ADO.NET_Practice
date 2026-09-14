@@ -313,7 +313,7 @@ namespace ADO.NET_Practice
             bool IsFound = false;
 
             SqlConnection connection = new SqlConnection(connectionString);
-            string Query = "Select * From Contacts Where ContactID = @ContactID";
+            string Query = @"Select * From Contacts Where ContactID = @ContactID";
 
             SqlCommand command = new SqlCommand(Query, connection);
             command.Parameters.AddWithValue("@ContactID" , ContactID);
@@ -326,7 +326,7 @@ namespace ADO.NET_Practice
                 if (reader.Read())
                 {
                     IsFound = true;
-                    ContactInfo.ID = (int)reader["CantactID"];
+                    ContactInfo.ID = (int)reader["ContactID"];
                     ContactInfo.FirstName = (string)reader["FirstName"];
                     ContactInfo.LastName = (string)reader["LastName"];
                     ContactInfo.Email = (string)reader["Email"];
@@ -338,8 +338,8 @@ namespace ADO.NET_Practice
                 {
                    IsFound = false;
                 }
-                connection.Close();
                 reader.Close();
+                connection.Close();
             }
             catch(Exception ex)
             {
@@ -347,6 +347,44 @@ namespace ADO.NET_Practice
             }
             
             return IsFound;
+        }
+
+        static void AddNewContact(stContact newContact)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            string query = @"INSERT INTO Contacts (FirstName, LastName, Email, Phone, Address, CountryID)
+                             VALUES (@FirstName, @LastName, @Email, @Phone, @Address, @CountryID)";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@FirstName", newContact.FirstName);
+            command.Parameters.AddWithValue("@LastName", newContact.LastName);
+            command.Parameters.AddWithValue("@Email", newContact.Email);
+            command.Parameters.AddWithValue("@Phone", newContact.Phone);
+            command.Parameters.AddWithValue("@Address", newContact.Address);
+            command.Parameters.AddWithValue("@CountryID", newContact.CountryID);
+
+            try
+            {
+                connection.Open();
+                int rowAffected = command.ExecuteNonQuery();
+                
+                if(rowAffected > 0)
+                {
+                    Console.WriteLine("Add Contact Successfully");
+                }
+                else
+                {
+                    Console.WriteLine("Failed to Add Contact");
+                }
+
+                connection.Close();
+            }
+            catch(Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
         static void Main(string[] args)
         {
@@ -367,20 +405,35 @@ namespace ADO.NET_Practice
 
             stContact Contact = new stContact();
 
-            if(FindContactID(2, ref Contact))
+            //if(FindContactID(2, ref Contact))
+            //{
+            //    Console.WriteLine($"ID: {Contact.ID}");
+            //    Console.WriteLine($"First Name: {Contact.FirstName}");
+            //    Console.WriteLine($"Last Name: {Contact.LastName}");
+            //    Console.WriteLine($"Email: {Contact.Email}");
+            //    Console.WriteLine($"Phone: {Contact.Phone}");
+            //    Console.WriteLine($"Address: {Contact.Address}");
+            //    Console.WriteLine($"CountryID: {Contact.CountryID}");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Not Found");
+            //}
+
+
+            //Insert 
+            stContact contactInfo = new stContact
             {
-                Console.WriteLine($"ID: {Contact.ID}");
-                Console.WriteLine($"First Name: {Contact.FirstName}");
-                Console.WriteLine($"Last Name: {Contact.LastName}");
-                Console.WriteLine($"Email: {Contact.Email}");
-                Console.WriteLine($"Phone: {Contact.Phone}");
-                Console.WriteLine($"Address: {Contact.Address}");
-                Console.WriteLine($"CountryID: {Contact.CountryID}");
-            }
-            else
-            {
-                Console.WriteLine("Not Found");
-            }
+                FirstName = "Mohamed",
+                LastName = "Mostafa",
+                Email = "Emai@Gmail.com",
+                Phone = "01010721434",
+                Address = "New Assuit City",
+                CountryID =1
+            };
+
+            AddNewContact(contactInfo);
+
             Console.ReadKey();
         }
     }
