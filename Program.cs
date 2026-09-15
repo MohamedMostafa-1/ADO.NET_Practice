@@ -461,6 +461,36 @@ namespace ADO.NET_Practice
                 Console.WriteLine(ex.Message);
             }
         }
+        static void DeleteContactsUseIn(string Contacts)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            string Query = @"Delete from  Contacts 
+                              where ContactID in (" + Contacts +")";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+         
+
+            try
+            {
+                connection.Open();
+                int rowAffected = command.ExecuteNonQuery();
+                if (rowAffected > 0)
+                {
+                    Console.WriteLine("Record Deleted Successfully");
+                }
+                else
+                {
+                    Console.WriteLine("Failed to Delete Contact");
+                }
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
         static void Main(string[] args)
         {
             //PrintAllContacts();
@@ -511,7 +541,10 @@ namespace ADO.NET_Practice
 
             //UpdataContact(1, contactInfo);
 
-            DeleteContact(1);
+            //DeleteContact(1);
+            
+            DeleteContactsUseIn("9,8");
+
 
             Console.ReadKey();
         }
