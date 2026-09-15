@@ -386,6 +386,49 @@ namespace ADO.NET_Practice
             }
 
         }
+        static void UpdataContact(int ContactIDUpdate , stContact contactInfo)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            string Query = @"UPDATE Contacts
+                            SET FirstName = @FirstName
+                                ,LastName = @LastName
+                                ,Email = @Email
+                                ,Phone = @Phone 
+                                ,Address = @Address
+                                ,CountryID = @CountryID
+                            WHERE ContactID = @ContactID ";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+
+            command.Parameters.AddWithValue("@ContactID", ContactIDUpdate);
+            command.Parameters.AddWithValue("@FirstName", contactInfo.FirstName);
+            command.Parameters.AddWithValue("@LastName", contactInfo.LastName);
+            command.Parameters.AddWithValue("@Email", contactInfo.Email);
+            command.Parameters.AddWithValue("@Phone", contactInfo.Phone);
+            command.Parameters.AddWithValue("@Address", contactInfo.Address);
+            command.Parameters.AddWithValue("@CountryID", contactInfo.CountryID);
+
+            try
+            {
+                connection.Open();
+                int rowAffected = command.ExecuteNonQuery();
+                if (rowAffected > 0)
+                {
+                    Console.WriteLine("Updata Contact Successfully");
+                }
+                else
+                {
+                    Console.WriteLine("Failed to Add Contact");
+                }
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
         static void Main(string[] args)
         {
             //PrintAllContacts();
@@ -432,7 +475,9 @@ namespace ADO.NET_Practice
                 CountryID =1
             };
 
-            AddNewContact(contactInfo);
+            //AddNewContact(contactInfo);
+
+            UpdataContact(1, contactInfo);
 
             Console.ReadKey();
         }
