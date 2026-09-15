@@ -386,7 +386,7 @@ namespace ADO.NET_Practice
             }
 
         }
-        static void UpdataContact(int ContactIDUpdate , stContact contactInfo)
+        static void UpdataContact(int ContactIDToUpdate , stContact contactInfo)
         {
             SqlConnection connection = new SqlConnection(connectionString);
 
@@ -401,7 +401,7 @@ namespace ADO.NET_Practice
 
             SqlCommand command = new SqlCommand(Query, connection);
 
-            command.Parameters.AddWithValue("@ContactID", ContactIDUpdate);
+            command.Parameters.AddWithValue("@ContactID", ContactIDToUpdate);
             command.Parameters.AddWithValue("@FirstName", contactInfo.FirstName);
             command.Parameters.AddWithValue("@LastName", contactInfo.LastName);
             command.Parameters.AddWithValue("@Email", contactInfo.Email);
@@ -419,7 +419,39 @@ namespace ADO.NET_Practice
                 }
                 else
                 {
-                    Console.WriteLine("Failed to Add Contact");
+                    Console.WriteLine("Failed to update Contact");
+                }
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        static void DeleteContact(int ContactIDToDelete)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            string Query = @"Delete from  Contacts 
+                              where ContactID = @ContactID ";
+
+            SqlCommand command = new SqlCommand(Query, connection);
+            command.Parameters.AddWithValue("@ContactID", ContactIDToDelete);
+         
+
+            try
+            {
+                connection.Open();
+                int rowAffected = command.ExecuteNonQuery();
+                if (rowAffected > 0)
+                {
+                    Console.WriteLine("Record Deleted Successfully");
+                }
+                else
+                {
+                    Console.WriteLine("Failed to Delete Contact");
                 }
 
                 connection.Close();
@@ -477,7 +509,9 @@ namespace ADO.NET_Practice
 
             //AddNewContact(contactInfo);
 
-            UpdataContact(1, contactInfo);
+            //UpdataContact(1, contactInfo);
+
+            DeleteContact(1);
 
             Console.ReadKey();
         }
