@@ -613,6 +613,21 @@ namespace ADO.NET_Practice
             Console.WriteLine("Maximum Salary: " + MaxSalaly);
 
 
+            // Sorting 
+
+            Console.WriteLine();
+            EmployeesDataTable.DefaultView.Sort = "Name Asc";
+            EmployeesDataTable = EmployeesDataTable.DefaultView.ToTable();
+
+            //EmployeesDataTable.DefaultView.Sort = "ID desc";
+            //EmployeesDataTable = EmployeesDataTable.DefaultView.ToTable();
+
+            Console.WriteLine("\nAfter Sorting By ID DESC..... \n");
+            foreach (DataRow row in EmployeesDataTable.Rows)
+            {
+                Console.WriteLine(" ID: {0}\n Name: {1}\n Country: {2}\n Salary: {3}\n Date: {4}\n", row[0], row[1], row[2], row[3], row[4]);
+            }
+
             Console.ReadKey();
         }
     }
