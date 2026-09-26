@@ -658,6 +658,10 @@ namespace ADO.NET_Practice
                 Console.WriteLine(" ID: {0}\t Name: {1}\t Country: {2}\t Salary: {3}\t Date: {4}\n", row[0], row[1], row[2], row[3], row[4]);
             }
 
+            //Clear all Data
+            //EmployeesDataTable.Clear();
+
+
             Console.ReadKey();
         }
     }
