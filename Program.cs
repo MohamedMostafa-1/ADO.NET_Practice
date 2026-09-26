@@ -562,10 +562,31 @@ namespace ADO.NET_Practice
             EmployeesDataTable.Rows.Add(4, "Youssef Mahmoud", "Egypt", 9500, DateTime.Now);
             EmployeesDataTable.Rows.Add(5, "Mostafa Ibrahim", "US", 11000, DateTime.Now);
 
+
+            int EmployeesCount = 0;
+            double TotalSalaly = 0;
+            double AverageSalaly = 0;
+            double MinSalaly = 0;
+            double MaxSalaly = 0;
+
+            EmployeesCount = EmployeesDataTable.Rows.Count;
+            TotalSalaly = Convert.ToDouble(EmployeesDataTable.Compute("Sum(Salary)", string.Empty));
+            AverageSalaly = Convert.ToDouble(EmployeesDataTable.Compute("Avg(Salary)", string.Empty));
+            MinSalaly = Convert.ToDouble(EmployeesDataTable.Compute("Min(Salary)", string.Empty));
+            MaxSalaly = Convert.ToDouble(EmployeesDataTable.Compute("Max(Salary)", string.Empty));
+
             foreach (DataRow Row in EmployeesDataTable.Rows)
             {
                 Console.WriteLine("ID: {0}   Name: {1}       Country: {2}         Salary: {3}           Date: {4}", Row["ID"], Row["Name"], Row["Country"], Row["Salary"], Row["Date"]);
             }
+
+            Console.WriteLine();
+
+            Console.WriteLine("Employees Count: " + EmployeesCount);
+            Console.WriteLine("Total Salary: " + TotalSalaly);
+            Console.WriteLine("Average Salary: " + AverageSalaly);
+            Console.WriteLine("Minimum Salary: " + MinSalaly);
+            Console.WriteLine("Maximum Salary: " + MaxSalaly);
 
 
             Console.ReadKey();
