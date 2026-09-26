@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
-using System.Reflection.Emit; // Data Provider
+using System.Reflection.Emit;
+using System.Data; // Data Provider
 
 namespace ADO.NET_Practice
 {
@@ -542,8 +543,29 @@ namespace ADO.NET_Practice
             //UpdataContact(1, contactInfo);
 
             //DeleteContact(1);
-            
-            DeleteContactsUseIn("9,8");
+
+            //DeleteContactsUseIn("9,8");
+
+
+            //DataTable
+            DataTable EmployeesDataTable = new DataTable();
+
+            EmployeesDataTable.Columns.Add("ID" , typeof(int));
+            EmployeesDataTable.Columns.Add("Name", typeof(string));
+            EmployeesDataTable.Columns.Add("Country", typeof(string));
+            EmployeesDataTable.Columns.Add("Salary", typeof(Double));
+            EmployeesDataTable.Columns.Add("Date", typeof(DateTime));
+
+            EmployeesDataTable.Rows.Add(1, "Mohamed Mostafa", "Egypt", 10000, DateTime.Now);
+            EmployeesDataTable.Rows.Add(2, "Ahmed Ali", "US", 8500, DateTime.Now);
+            EmployeesDataTable.Rows.Add(3, "Omar Hassan", "UK", 12000, DateTime.Now);
+            EmployeesDataTable.Rows.Add(4, "Youssef Mahmoud", "Egypt", 9500, DateTime.Now);
+            EmployeesDataTable.Rows.Add(5, "Mostafa Ibrahim", "US", 11000, DateTime.Now);
+
+            foreach (DataRow Row in EmployeesDataTable.Rows)
+            {
+                Console.WriteLine("ID: {0}   Name: {1}       Country: {2}         Salary: {3}           Date: {4}", Row["ID"], Row["Name"], Row["Country"], Row["Salary"], Row["Date"]);
+            }
 
 
             Console.ReadKey();
