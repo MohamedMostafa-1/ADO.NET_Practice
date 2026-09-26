@@ -628,6 +628,19 @@ namespace ADO.NET_Practice
                 Console.WriteLine(" ID: {0}\n Name: {1}\n Country: {2}\n Salary: {3}\n Date: {4}\n", row[0], row[1], row[2], row[3], row[4]);
             }
 
+
+            //Delete
+            DataRow[] rows = EmployeesDataTable.Select("ID = 3");
+            foreach(var row in rows)
+            {
+                row.Delete();
+            }
+            EmployeesDataTable.AcceptChanges();
+            foreach (DataRow row in EmployeesDataTable.Rows)
+            {
+                Console.WriteLine(" ID: {0}\t Name: {1}\t Country: {2}\t Salary: {3}\t Date: {4}\n", row[0], row[1], row[2], row[3], row[4]);
+            }
+
             Console.ReadKey();
         }
     }
