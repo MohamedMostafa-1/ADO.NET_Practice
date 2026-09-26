@@ -549,7 +549,7 @@ namespace ADO.NET_Practice
 
 
             //DataTable
-            DataTable EmployeesDataTable = new DataTable();
+            DataTable EmployeesDataTable = new DataTable("EmployeesDataTable");
 
             EmployeesDataTable.Columns.Add("ID" , typeof(int));
             EmployeesDataTable.Columns.Add("Name", typeof(string));
@@ -670,7 +670,7 @@ namespace ADO.NET_Practice
 
 
             // Autoincrement and Others
-            DataTable dtPersonTable = new DataTable();
+            DataTable dtPersonTable = new DataTable("dtPersonTable");
             DataColumn dtColumn = new DataColumn();
 
             dtColumn.DataType = typeof(int);
@@ -744,6 +744,30 @@ namespace ADO.NET_Practice
                 Console.WriteLine(" ID: {0}\t Name: {1}\t Country: {2}\t Salary: {3}\t Date: {4}\n",
                     EmployeesDataView[i][0], EmployeesDataView[i][1], EmployeesDataView[i][2], EmployeesDataView[i][3], EmployeesDataView[i][4]);
             }
+
+
+            //DataSet
+
+            Console.WriteLine();
+            Console.WriteLine("Create DataSet......");
+
+            DataSet dataSet = new DataSet();
+            dataSet.Tables.Add(EmployeesDataTable);
+            dataSet.Tables.Add(dtPersonTable);
+
+            Console.WriteLine("\nEmployeesDataTable  ..... \n");
+            foreach (DataRow row in dataSet.Tables["EmployeesDataTable"].Rows)
+            {
+                Console.WriteLine(" ID: {0}\t Name: {1}\t Country: {2}\t Salary: {3}\t Date: {4}\n", row[0], row[1], row[2], row[3], row[4]);
+            }
+
+            Console.WriteLine("\nDtPreson  ..... \n");
+            foreach (DataRow row in dataSet.Tables["dtPersonTable"].Rows)
+            {
+                Console.WriteLine(" ID: {0}\t Name: {1}\t", row[0], row[1]);
+            }
+
+
 
             Console.ReadKey();
         }
