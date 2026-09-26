@@ -589,6 +589,30 @@ namespace ADO.NET_Practice
             Console.WriteLine("Maximum Salary: " + MaxSalaly);
 
 
+            //Filter 
+            DataRow[] ResultRows = EmployeesDataTable.Select("Country = 'Egypt' or Country = 'US'");
+
+            Console.WriteLine("\nAfter Filter..... \n");
+            foreach (DataRow row in ResultRows)
+            {
+                Console.WriteLine("ID: {0}   Name: {1}       Country: {2}         Salary: {3}           Date: {4}", row[0], row[1], row[2], row[3], row[4]);
+            }
+
+            EmployeesCount = ResultRows.Count();
+            TotalSalaly = Convert.ToDouble(EmployeesDataTable.Compute("Sum(Salary)", "Country = 'Egypt' or Country = 'US'"));
+            AverageSalaly = Convert.ToDouble(EmployeesDataTable.Compute("Avg(Salary)", "Country = 'Egypt' or Country = 'US'"));
+            MinSalaly = Convert.ToDouble(EmployeesDataTable.Compute("Min(Salary)", "Country = 'Egypt' or Country = 'US'"));
+            MaxSalaly = Convert.ToDouble(EmployeesDataTable.Compute("Max(Salary)", "Country = 'Egypt' or Country = 'US'"));
+
+            Console.WriteLine();
+
+            Console.WriteLine("Employees Count: " + EmployeesCount);
+            Console.WriteLine("Total Salary: " + TotalSalaly);
+            Console.WriteLine("Average Salary: " + AverageSalaly);
+            Console.WriteLine("Minimum Salary: " + MinSalaly);
+            Console.WriteLine("Maximum Salary: " + MaxSalaly);
+
+
             Console.ReadKey();
         }
     }
