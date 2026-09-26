@@ -662,6 +662,13 @@ namespace ADO.NET_Practice
             //EmployeesDataTable.Clear();
 
 
+            // Create Primary Key
+            DataColumn[] PrimaryKeyColumn = new DataColumn[1];
+            PrimaryKeyColumn[0] = EmployeesDataTable.Columns["ID"];
+            EmployeesDataTable.PrimaryKey = PrimaryKeyColumn;
+
+
+
             Console.ReadKey();
         }
     }
