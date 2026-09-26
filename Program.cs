@@ -712,6 +712,15 @@ namespace ADO.NET_Practice
             }
 
 
+            // Dataview 
+            Console.WriteLine();
+
+            DataView EmployeesDataView = EmployeesDataTable.DefaultView;
+            for (int i = 0; i < EmployeesDataView.Count; i++)
+            {
+                Console.WriteLine(" ID: {0}\t Name: {1}\t Country: {2}\t Salary: {3}\t Date: {4}\n",
+                    EmployeesDataView[i][0], EmployeesDataView[i][1], EmployeesDataView[i][2], EmployeesDataView[i][3], EmployeesDataView[i][4]);
+            }
 
             Console.ReadKey();
         }
