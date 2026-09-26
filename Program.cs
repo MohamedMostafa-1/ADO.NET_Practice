@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Linq.Expressions;
 using System.Reflection.Emit;
-using System.Data; // Data Provider
+using System.Data;
+using System.Net.Http.Headers; // Data Provider
 
 namespace ADO.NET_Practice
 {
@@ -663,9 +664,52 @@ namespace ADO.NET_Practice
 
 
             // Create Primary Key
-            DataColumn[] PrimaryKeyColumn = new DataColumn[1];
+            DataColumn[] PrimaryKeyColumn = new DataColumn[1]; // only one PrimaryKey
             PrimaryKeyColumn[0] = EmployeesDataTable.Columns["ID"];
             EmployeesDataTable.PrimaryKey = PrimaryKeyColumn;
+
+
+            // Autoincrement and Others
+            DataTable dtPersonTable = new DataTable();
+            DataColumn dtColumn = new DataColumn();
+
+            dtColumn.DataType = typeof(int);
+            dtColumn.ColumnName = "ID";
+            dtColumn.AutoIncrement = true;
+            dtColumn.AutoIncrementSeed = 1;
+            dtColumn.AutoIncrementStep = 1;
+
+            dtColumn.Caption = "PersonID";
+            dtColumn.ReadOnly = true;
+            dtColumn.Unique = true;
+            dtPersonTable.Columns.Add(dtColumn);
+
+
+            dtColumn = new DataColumn();
+
+            dtColumn.DataType = typeof(string);
+            dtColumn.ColumnName = "Name";
+            dtColumn.AutoIncrement = false;
+            dtColumn.ReadOnly = false;
+            dtColumn.Unique = false;
+            dtColumn.Caption = "Name";
+            dtPersonTable.Columns.Add(dtColumn);
+
+            DataColumn[] PrimaryKeyColumnPerson = new DataColumn[1];
+            PrimaryKeyColumnPerson[0] = dtPersonTable.Columns["ID"];
+            dtPersonTable.PrimaryKey = PrimaryKeyColumnPerson;
+
+            dtPersonTable.Rows.Add(null, "Mohamed Mostafa");
+            dtPersonTable.Rows.Add(null, "Ali Mostafa");
+            dtPersonTable.Rows.Add(null, "Marwan Mostafa");
+            dtPersonTable.Rows.Add(null, "Hamada Mostafa");
+            dtPersonTable.Rows.Add(null, "KoKo Mostafa");
+
+            Console.WriteLine("\nDtPreson  ..... \n");
+            foreach (DataRow row in dtPersonTable.Rows)
+            {
+                Console.WriteLine(" ID: {0}\t Name: {1}\t", row[0], row[1]);
+            }
 
 
 
