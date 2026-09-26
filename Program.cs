@@ -636,6 +636,23 @@ namespace ADO.NET_Practice
                 row.Delete();
             }
             EmployeesDataTable.AcceptChanges();
+
+            Console.WriteLine("\nAfter Delete By ID..... \n");
+            foreach (DataRow row in EmployeesDataTable.Rows)
+            {
+                Console.WriteLine(" ID: {0}\t Name: {1}\t Country: {2}\t Salary: {3}\t Date: {4}\n", row[0], row[1], row[2], row[3], row[4]);
+            }
+
+
+            //Update 
+            DataRow[] Rows = EmployeesDataTable.Select("ID = 1");
+            foreach(var row in Rows)
+            {
+                row["Name"] = "KOKO";
+            }
+            EmployeesDataTable.AcceptChanges();
+
+            Console.WriteLine("\nAfter Update By ID ..... \n");
             foreach (DataRow row in EmployeesDataTable.Rows)
             {
                 Console.WriteLine(" ID: {0}\t Name: {1}\t Country: {2}\t Salary: {3}\t Date: {4}\n", row[0], row[1], row[2], row[3], row[4]);
